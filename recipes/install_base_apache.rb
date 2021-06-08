@@ -5,7 +5,11 @@ case node['platform_family']
 when 'rhel', 'fedora', 'suse'
   packages = %w[apr apr-util pcre-devel libxml2-devel curl-devel]
 when 'debian'
-  packages = %w[libapr1 libaprutil1 libpcre3 libxml2 libcurl3]
+  if node['platform_version'] == '20.04'
+    packages = %w[libapr1 libaprutil1 libpcre3 libxml2 libcurl4]
+  else
+    packages = %w[libapr1 libaprutil1 libpcre3 libxml2 libcurl3]
+  end
 when 'arch'
   packages = %w[apr apr-util pcre libxml2 lib32-curl]
 when 'freebsd'
